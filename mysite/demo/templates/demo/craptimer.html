@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Bootstrap 实例 - 进度条</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <link href="../../static/demo/css/bootstrap.min.css" rel="stylesheet">
+   <script src="../../static/demo/js/jquery.min.js"></script>
+   <script src="../../static/demo/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div>
+      <p>正在解析{{website}}</p>
+   </div>
+<div class="progress">
+   <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+      aria-valuemin="0" aria-valuemax="100" style="width:{{x}}%">
+      <span class="sr-only"></span>
+      <p style="color:black">{{x}}%完成</p>
+   </div>
+</div>
+<script>
+function myrefresh() 
+{ 
+window.location.reload(); 
+} 
+setTimeout('myrefresh()',1000); //指定1秒刷新一次
+</script>
+</body>
+</html>			

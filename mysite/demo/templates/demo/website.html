@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../../static/demo/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://www.francescomalagrino.com/BootstrapPageGenerator/3/js/jquery-ui"></script>-->
+<link href="../../static/demo/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="../../static/demo/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+
+
+			<form method="POST" enctype="multipart/form-data" name="webfile">
+				<fieldset>
+					<legend>网址配置</legend>
+					<label>文件上传</label><br>
+					 <input type="file" name="webfile" /><br/>
+					 <input type="submit" value="提交" name="sub" onclick="document.webfile.submit()" />
+				</fieldset>	
+			</form>
+
+				<fieldset>
+				<legend>网址预览</legend>
+					<table id ="website" name="webtable">
+					<tr><td>website</td><td>operation</td></tr>
+
+						{% for object in objects %}
+							<tr><td>{{ object }}</td>
+							<td><input type="button" value="修改"/ onclick="change(this)">
+							<input type="button" value="确定"/ onclick="sure(this)"></td></tr>
+						{% endfor %}
+					</table><br/>
+					<input type="button" value="保存网址" name="save" onclick="save(this)" />
+				</fieldset>
+
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+function sure(su){
+var table4=document.getElementById("website").rows;
+var rowss=su.parentNode.parentNode.rowIndex;
+var cellss=table4[rowss].cells[0];
+cellss.innerHTML=document.getElementById("id1").value;
+
+}
+function change(ch){
+var table3=document.getElementById("website").rows;
+var rowss=ch.parentNode.parentNode.rowIndex;
+var cellss=table3[rowss].cells[0];
+var oldR=cellss.innerHTML;
+cellss.innerHTML="<input type='text' id='id1' > ";
+document.getElementById("id1").value=oldR;
+}
+
+function save(sa){
+
+	var tab =document.getElementById("website");	
+	var SaObj = document.createElement("form");		
+	var rows=tab.rows;
+	var opt = document.createElement("input");
+	opt.name = "webaddr";
+	for(i =1;i<rows.length;i++){
+		opt.value = opt.value +tab.rows[i].cells[0].innerHTML+"*";
+	}
+	SaObj.appendChild(opt);
+	SaObj.method="POST";
+	SaObj.name = "website"
+	SaObj.submit();
+
+	return SaObj;
+}
+
+</script>
+
+</html>
