@@ -57,7 +57,7 @@
   <body data-spy="scroll" data-target="#myScrollspy">
 <div class="container">
   <div class="jumbotron" style="background-color:#99CCFF;color:white">
-        <h1>欢迎您,{{username}}</h1>
+        <h1>采购信息查询</h1>
         <div class="row">
         <div class="col-xs-9">
         </div>
@@ -86,16 +86,16 @@
             <iframe src={%url 'demo:upweb'%} name="iframe_1" frameborder='0' width="800px" height="600px"></iframe>
             <hr>
             <h2 id="section-2">网页抓取</h2>
-            <p></p>
-            <iframe src="index_initial.html" name="iframe_1" frameborder='0' width="800px" height="600px"></iframe> 
+             <button class="btn btn-success btn-xs" onclick="refresh()">查看可抓取的网页</button>
+            <iframe src={%url 'demo:crap' %} name="iframe_2" id="iframe_2" frameborder='0' width="800px" height="800px"></iframe> 
             <hr>
             <h2 id="section-3">分类查询</h2>
             <p></p>
-            <iframe src="index_initial.html" name="iframe_1" frameborder='0' width="800px" height="600px"></iframe>
+            <iframe src={%url 'demo:query'%} name="iframe_3" frameborder='0' width="800px" height="600px"></iframe>
             <hr>
             <h2 id="section-4">数据统计</h2>
              <p></p>
-             <iframe src="index_initial.html" name="iframe_1" frameborder='0' width="800px" height="600px"></iframe>
+             <iframe src={%url 'demo:analysis'%} name="iframe_4" frameborder='0' width="800px" height="800px"></iframe>
             <hr>
         </div>
     </div>
@@ -106,5 +106,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../../static/demo/js/jquery.min.js"></script>
     <script src="../../static/demo/js/bootstrap.min.js"></script>
+    <script type="text/JavaScript">
+    function refresh(){
+        var d=document.getElementById("iframe_2")
+        d.src="{%url 'demo:crap'%}"
+    }
+    </script>
   </body>
 </html>

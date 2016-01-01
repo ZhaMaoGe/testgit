@@ -1,30 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title></title>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <link href="../../static/demo/css/bootstrap.min.css" rel="stylesheet">
    <script src="../../static/demo/js/jquery.min.js"></script>
    <script src="../../static/demo/js/bootstrap.min.js"></script>
 </head>
 <body>
-   <table class="table table-striped">
+   <div style="display:{{status1}}">
+   <table class="table table-striped" id="td1">
    <thead>
    		<th>网址</th><th></th>
    	</thead>
    	<tbody>
-      {%for website in website_list%}
-      <tr><td>{{website}}</td><td><input type="button" value="确认" onclick="function()"></td></tr>
-      {%endfor%}
+      {% for web in website_list %}
+      <tr><td>{{web}}</td><td><button onclick="select(this)" class="btn btn-success btn-xs">选择</button></td></tr>
+      {% endfor %}
       </tbody>
    </table>
-   <textarea id="mytextarea" cols="1">
-   	
-   </textarea>
-</body>
+   <button onclick="select_all()" class="btn btn-success btn-xs">全选</button>
+   </div>
+   <div style="display:{{status1}}">
+   <table class="table table-striped">
+   <thead>
+      <th>将要进行爬取的网址</th>
+   </thead>
+   <tbody id="td">
+   </tbody>
+   </table>
+   <button onclick="del()" class="btn btn-success btn-xs">取消</button>&nbsp&nbsp&nbsp&nbsp<button class="btn btn-success btn-xs" onclick="submit_array()">确认</button>&nbsp&nbsp&nbsp&nbsp</div>
+   <iframe id="iframe1" name="iframe1" src={% url 'demo:craptimer'%} style="display:{{status2}};width:600px" ></iframe>
+   <hr>
+   <a href={%url 'demo:crap_begin'%}><button class="btn btn-success btn-xs" style="display:{{status2}}" onclick="begin_crap()">开始抓取</button></a>
 <script type="text/javascript">
-	function(){
-		
+	web_to_crap=new Array();
+   i=0;
+   function select(obj)
+   {
+	var f=obj.parentNode.previousSibling;
+   web_to_crap[i]=f.innerHTML;
+   var g=document.getElementById('td');
+   var r=g.insertRow(i);
+   var d=r.insertCell(0);
+   d.innerHTML=f.innerHTML;
+   i++;
+   //alert("this is a test");
 	}
+   function del(obj)
+   {
+      var t=document.getElementById('td');
+      t.innerHTML=null;
+      web_to_crap=[];
+      i=0;
+      //alert("delete sucess");
+   }
+   function select_all(){
+      var t=document.getElementById("td1").rows;
+      var count=0;
+      var g=document.getElementById("td");
+      g.innerHTML=null;
+      for(i=1;i<t.length;i++){
+         web_to_crap[count]=t[i].firstChild.innerHTML;
+         var r=g.insertRow(count);
+         var d=r.insertCell(0);
+         d.innerHTML=web_to_crap[count];
+         count++;
+      }
+      i=count;
+      //alert("全选成功");
+   }
+   function submit_array(){
+    var myForm = document.createElement("form"); 
+    myForm.method="post" ; 
+    myForm.action = "{% url 'demo:crap'%}" ; 
+    var myInput = document.createElement("input") ; 
+    myInput.name="web_to_crapper" ;
+    if(web_to_crap.length==0){
+      alert("不能为空")
+      return
+    } 
+    for(i=0;i<web_to_crap.length;i++){
+      myInput.value=myInput.value+web_to_crap[i]+"*"
+    }
+    myForm.appendChild(myInput) ;
+    document.body.appendChild(myForm) ; 
+    myForm.submit() ; 
+    document.body.removeChild(myForm) 
+   }
+   function begin_crap(){
+    iframe_temp=document.getElementById('iframe1');
+    iframe_temp.src={% url 'demo:craptimer'%}
+   }
 </script>
+</body>
 </html>			

@@ -50,15 +50,19 @@ def Spider(url):
         if not len(money)==1:
             flag=invalid
         else:
-            money_list.append(money[0].replace('\n','').replace('\t','').replace(' ','').replace('\r',''))
-            flag=valid
+            m=re.findall(r'\d+\.?\d*',money[0].replace(',',''))
+            if(len(m)>=1):
+                t=m[0]
+                #print t
+                money_list.append(t)
+                flag=valid
         company_list.append(company.replace('\n','').replace('\t','').replace(' ','').replace('\r',''))
     if not len(company_list) == len(money_list):
         flag=invalid
     if flag==valid:
         for i in range(len(company_list)):
             #item={'name':name,'time':time,'company':company_list[i],'money':money_list[i]}
-            newItem=Item(name=name,time=time,company=company_list[i],money=money_list[i])
+            newItem=Item(name=name,time=time,company=company_list[i],money=float(money_list[i]))
             newItem.save()
 
 def Divide(url):
@@ -77,7 +81,8 @@ def Divide(url):
 
 #构建UrlList(每一页)
 def Page():
-    global Page_amount
+    global Page_amount,per
+    per=0.0
     #求页数
     html=requests.get(url).text
     root=etree.HTML(html)
@@ -101,5 +106,5 @@ def Page():
     pool.join()
     # for i in range(Page_amount):
     #     Divide(UrlList[i])
-    
+
 

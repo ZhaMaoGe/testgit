@@ -16,7 +16,7 @@ class Item(models.Model):
 	name=models.CharField(u'项目名称',max_length=100)
 	time=models.CharField(u'中标时间',max_length=40)
 	company=models.CharField(u'中标公司',max_length=100)
-	money=models.CharField(u'中标时间',max_length=100)
+	money=models.FloatField(u'中标金额')
 	def __str__(self):
 		return self.name
 @python_2_unicode_compatible

@@ -1,13 +1,39 @@
+#encoding:utf8
+import matplotlib
+import string
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from models import Item
 import datetime
 
-def analysis1(company_name):
-	item_list=Item.objects.fiter(company=company_name)
-	
+
+def analysis2(company_name):
+	item_list=Item.objects.filter(company=company_name).order_by('time')
+	fig=plt.figure()
+	ax=fig.add_subplot(111)
+	times=[]
+	moneys=[]
+	for item in item_list:
+	    Money=item.money
+	    date=item.time
+	    if(date in times):
+	    	t=times.index(date)
+	    	moneys[t]=moneys[t]+Money
+	    else:
+	    	times.append(date)
+	    	moneys.append(Money)
+	while(len(times)<4):
+		times.append('xxxx-xx-xx')
+		moneys.append(0)
+	for i in range(len(times)):
+		ax.bar(i,moneys[i],width=0.5)
+	m=plt.xticks(range(len(times)),times)
+	ax.set_xticklabels(times,rotation=90,size=8)
+	plt.xlabel('date')
+	plt.ylabel('money')
+	plt.title('bar')
+	fig.savefig("demo/static/demo/images/bar.png")
 
 
-def analysis2(begin_year,begin_month,begin_data,end_year,end_month,end_year):
-	start_date=datetime.date(begin_year,begin_month,begin_data)
-	end_date=datetime.date(end_year,end_month,end_date)
-	item_list=Item.objects.filter(time__range=(start_date,end_date))
+
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title></title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <link href="../../static/demo/css/bootstrap.min.css" rel="stylesheet">
+   <script src="../../static/demo/js/jquery.min.js"></script>
+   <script src="../../static/demo/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div>
+      <form class="form-horizontal" role="form" action={%url 'demo:query'%} method="POST">
+         <label>项目名称</label>
+         <input type="text" class="form-control" id="name" name="name"
+            placeholder="例：无人机及信息安全平台设备采购" style="width:200px">
+         <label>中标单位</label>
+         <input type="text" class="form-control" id="company" name="company" 
+            placeholder="例：北京红亚华宇科技有限公司" style="width:200px">
+         <label>最小中标金额</label>
+         <input type="text" class="form-control" id="lastname" name="money_begin"
+            placeholder="例：12345.0" style="width:200px">
+         <label>最大中标金额</label>
+         <input type="text" class="form-control" id="lastname" name="money_end"
+            placeholder="例：22223.0" style="width:200px">
+         <label>起始中标时间</label>
+         <input type="text" class="form-control" id="lastname" name="data_begin"
+            placeholder="例：2013-12-15" style="width:200px">
+         <label>终止中标时间</label>
+         <input type="text" class="form-control" id="lastname" name="data_end"
+            placeholder="例：2014-12-15" style="width:200px">
+         <label>查询方式(可多选)</label><br/>
+         <input type="checkbox" value="name" name="way">项目名称<br/>
+         <input type="checkbox" value="company" name="way">中标单位<br/>
+         <input type="checkbox" value="money" name="way">中标金额范围<br/>
+         <input type="checkbox" value="time" name="way">中标时间范围<br/>
+         <button type="submit" class="btn btn-success btn-xs">查询</button>
+      </form>
+   </div>
+   <div style="display:{{status1}}">
+      <table class="table table-striped">
+      <thead><th>项目名称</th><th>中标单位</th><th>中标金额</th><th>中标时间</th></thead>
+      <tbody>
+      {%for list in table_list%}
+      <tr><td>{{list.name}}</td><td>{{list.company}}</td><td>{{list.money}}</td><td>{{list.time}}</td></tr>
+      {%endfor%}
+      </tbody>
+      </table>
+   </div>
+<script>
+</script>
+</body>
+</html>			
