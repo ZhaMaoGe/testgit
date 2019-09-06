@@ -6,7 +6,7 @@ import json
 import sys
 import re
 import string
-from models import Item
+from .models import Item
 valid=1
 invalid=0
 HomeUrl="http://clkg.gzcz.gov.cn"

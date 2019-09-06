@@ -1,16 +1,16 @@
 #-*-coding:utf8-*-
+from __future__ import print_function
 from django.shortcuts import render,redirect,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from models import person,Web,Item
-from forms import WebForm
+from .models import person,Web,Item
+from .forms import WebForm
 import sys
-import province
-import data_analysis
-
-import verifycode
+from . import province
+from . import data_analysis
+from . import verifycode
 # Create your views here.
-reload(sys)
-sys.setdefaultencoding('utf8')
+#reload(sys)
+#sys.setdefaultencoding('utf8')
 
 #登陆界面函数
 def index(request,num=0):
@@ -85,7 +85,7 @@ def crap(request):
 				pass
 			else:
 				web_to_crapper=web_key.split('*')
-				print web_to_crapper
+				print(web_to_crapper)
 				return render(request,'demo\webcrap.html',{'status1':'none','status2':'block','website_list':[]})
 			#province.Page()
 	else:
@@ -97,7 +97,7 @@ def crap_begin(request):
 	global web,web_to_crapper,begin_crap
 	web=""
 	begin_crap=1
-	print "begin"
+	print("begin")
 	for web_temp in web_to_crapper:
 		if website_dict.get(web_temp):
 			web=web_temp

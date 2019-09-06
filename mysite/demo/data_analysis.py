@@ -3,7 +3,7 @@ import matplotlib
 import string
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from models import Item
+from .models import Item
 import datetime
 
 
